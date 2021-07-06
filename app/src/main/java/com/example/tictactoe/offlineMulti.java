@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +15,11 @@ public class offlineMulti extends AppCompatActivity implements View.OnClickListe
      * The variables can be declared before onCreate but have to be initialized inside onCreate or after it.
      */
     public int clicks;
-    private Button b1,b2,b3,b4,b5,b6,b7,b8,b9, reset;
-    private TextView turnText, turnSymbol;
+    public Button b1,b2,b3,b4,b5,b6,b7,b8,b9, reset;
+    public TextView turnText, turnSymbol, xScore, oScore, draw;
     public char matrix[][];
     boolean win=false;
+    short xWinCount, oWinCount, drawCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,13 @@ public class offlineMulti extends AppCompatActivity implements View.OnClickListe
         turnText=(TextView)findViewById(R.id.turnTxt);
         turnSymbol=(TextView)findViewById(R.id.turnSym);
 
+        xScore=(TextView)findViewById(R.id.xScore);
+        oScore=(TextView)findViewById(R.id.oScore);
+        draw=(TextView)findViewById(R.id.draw);
+
+        xWinCount=0;
+        oWinCount=0;
+        drawCount=0;
 //        Arrays.fill(matrix, '0');
 
         for (int i = 0; i < 3; i++) {
@@ -69,7 +78,7 @@ public class offlineMulti extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void resetAll() {
+    public void resetAll() {
         clicks=0;
         b1.setText("");
         b2.setText("");
@@ -81,9 +90,10 @@ public class offlineMulti extends AppCompatActivity implements View.OnClickListe
         b8.setText("");
         b9.setText("");
 
+
         turnText.setText("Player 1's Turn");
         turnSymbol.setText("X");
-
+        win=false;
         Log.i("RESET", "resetAll");
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -141,31 +151,175 @@ public class offlineMulti extends AppCompatActivity implements View.OnClickListe
      * @param j
      * @param b THis is again very Important way.MUST NOTE
      */
-    private void setallView(int i, int j, Button b) {
-        if(matrix[i][j]=='0')
+    public void setallView(int i, int j, Button b) {
+        if(matrix[i][j]=='0' && win==false)
         {
             clicks++;
             if (clicks % 2 == 0) {
                 //b.setBackground(R.drawable.cross_prev_ui);
-                b.setText("O");
+
                 matrix[i][j]='O';
+                checkWin(i,j);
+                b.setText("O");
+
                 if(win==false)
                 {
                     turnText.setText("Player 1's Turn");
                     turnSymbol.setText("X");
                 }
-                Log.i("cliked even", "onClick: Print O, click:" + clicks+" matrix contains: "+matrix[i][j]);
-            } else {
-                //b.setBackground(ContextCompat.getDrawable(context, R.drawable.ofinal));
-                b.setText("X");
-                matrix[i][j]='X';
-                if(clicks!=9 || win==false)
+                else
                 {
-                    turnText.setText("Player 2's Turn");
-                    turnSymbol.setText("O");
+                    oWinCount++;
+                    oScore.setText("O: "+oWinCount);
+                    Toast.makeText(this, "!! Player 2 WON -- O !!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i("cliked even", "onClick: Print O, click:" + clicks+" matrix contains: "+matrix[i][j]);
+            }
+            else {
+                //b.setBackground(ContextCompat.getDrawable(context, R.drawable.ofinal));
+
+                matrix[i][j]='X';
+                checkWin(i,j);
+                b.setText("X");
+
+                if(win==false)
+                {
+                    if(clicks!=9)
+                    {
+                        turnText.setText("Player 2's Turn");
+                        turnSymbol.setText("O");
+                    }
+                }
+                else
+                {
+                    xWinCount++;
+                    xScore.setText("X: "+xWinCount);
+                    Toast.makeText(this, "!! Player 1 WON -- X !!", Toast.LENGTH_SHORT).show();
                 }
                 Log.i("cliked odd", "onClick: Print X, click:" + clicks+" matrix contains: "+matrix[i][j]);
             }
         }
+        if(clicks==9 && win==false) {
+            drawCount++;
+            draw.setText("Draw: "+drawCount);
+            Toast.makeText(this, "!! Match DRAW !!", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    public void checkWin(int i, int j) {
+        if(i==0)
+        {
+            if(j==0)
+            {
+                if(left(i,j) || up(i,j) || diagBack(i,j))
+                {
+                    win=true;
+                }
+            }
+
+            else if(j==1)
+            {
+                if(up(i,j) || middleVertical(i,j))
+                {
+                    win=true;
+                }
+            }
+
+            else
+            {
+                if(up(i,j) || diagFront(i,j) || right(i,j))
+                {
+                    win=true;
+                }
+            }
+        }
+
+        else if(i==1)
+        {
+            if(j==0)
+            {
+                if(left(i,j) || middleHorizontal(i,j))
+                {
+                    win=true;
+                }
+            }
+
+            else if(j==1)
+            {
+                if(diagBack(i,j) || diagFront(i,j) || middleHorizontal(i,j) || middleVertical(i,j))
+                {
+                    win=true;
+                }
+            }
+
+            else
+            {
+                if(right(i,j) || middleHorizontal(i, j))
+                {
+                    win=true;
+                }
+            }
+        }
+
+        else
+        {
+            if(j==0)
+            {
+                if(left(i,j) || down(i,j) || diagFront(i,j))
+                {
+                    win=true;
+                }
+            }
+
+            else if(j==1)
+            {
+                if(down(i, j) || middleVertical(i, j))
+                {
+                    win=true;
+                }
+            }
+
+            else
+            {
+                if(right(i,j) || down(i,j) || diagBack(i,j))
+                {
+                    win=true;
+                }
+            }
+        }
+    }
+
+    public boolean up(int i, int j) {
+        return matrix[0][0] == matrix[0][1] && matrix[0][1] == matrix[0][2]; //Cool way!! :)
+    }
+
+    public boolean left(int i, int j) {
+        return matrix[0][0] == matrix[1][0] && matrix[1][0] == matrix[2][0];
+    }
+
+    public boolean down(int i, int j) {
+        return matrix[2][0] == matrix[2][1] && matrix[2][1] == matrix[2][2];
+    }
+
+    public boolean right(int i, int j) {
+        return matrix[2][2] == matrix[1][2] && matrix[1][2] == matrix[0][2];
+    }
+
+    public boolean middleVertical(int i, int j) {
+        return matrix[1][1] == matrix[0][1] && matrix[0][1] == matrix[2][1];
+    }
+
+    public boolean middleHorizontal(int i, int j) {
+        return matrix[1][0] == matrix[1][1] && matrix[1][1] == matrix[1][2];
+    }
+
+    public boolean diagFront(int i, int j) {
+        return matrix[2][0] == matrix[1][1] && matrix[1][1] == matrix[0][2];
+    }
+
+    public boolean diagBack(int i, int j) {
+        return matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2];
+    }
+
+
 }

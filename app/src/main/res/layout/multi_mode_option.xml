@@ -6,12 +6,14 @@
     android:layout_gravity="center">
 
     <Button
+        android:id="@+id/offline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Offline"/>
 
     <Button
+        android:id="@+id/online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

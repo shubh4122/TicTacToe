@@ -18,10 +18,18 @@ public class MainActivity extends AppCompatActivity {
         Button singleP=(Button)findViewById(R.id.singlePlayer);
         Button multi=(Button)findViewById(R.id.multiPlayer);
 
+        singleP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent singleIntent=new Intent(MainActivity.this, Single.class);
+                startActivity(singleIntent);
+            }
+        });
+
         multi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent multiIntent=new Intent(MainActivity.this, offlineMulti.class);
+                Intent multiIntent=new Intent(MainActivity.this, modeSelection.class);
                 startActivity(multiIntent);
             }
         });
