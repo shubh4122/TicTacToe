@@ -2,6 +2,7 @@ package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -132,16 +133,41 @@ public class Single extends AppCompatActivity implements View.OnClickListener {
         idArray[2][1]=R.id.btn8;
         idArray[2][2]=R.id.btn9;
 
-        b1.setBackgroundColor(Color.WHITE);
-        b2.setBackgroundColor(Color.WHITE);
-        b3.setBackgroundColor(Color.WHITE);
-        b4.setBackgroundColor(Color.WHITE);
-        b5.setBackgroundColor(Color.WHITE);
-        b6.setBackgroundColor(Color.WHITE);
-        b7.setBackgroundColor(Color.WHITE);
-        b8.setBackgroundColor(Color.WHITE);
-        b9.setBackgroundColor(Color.WHITE);
 
+        /**
+         * This detects theme and changes accordingly
+         */
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                b1.setBackgroundColor(Color.BLACK);
+                b2.setBackgroundColor(Color.BLACK);
+                b3.setBackgroundColor(Color.BLACK);
+                b4.setBackgroundColor(Color.BLACK);
+                b5.setBackgroundColor(Color.BLACK);
+                b6.setBackgroundColor(Color.BLACK);
+                b7.setBackgroundColor(Color.BLACK);
+                b8.setBackgroundColor(Color.BLACK);
+                b9.setBackgroundColor(Color.BLACK);
+        
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                b1.setBackgroundColor(Color.WHITE);
+                b2.setBackgroundColor(Color.WHITE);
+                b3.setBackgroundColor(Color.WHITE);
+                b4.setBackgroundColor(Color.WHITE);
+                b5.setBackgroundColor(Color.WHITE);
+                b6.setBackgroundColor(Color.WHITE);
+                b7.setBackgroundColor(Color.WHITE);
+                b8.setBackgroundColor(Color.WHITE);
+                b9.setBackgroundColor(Color.WHITE);
+        
+                break;
+        }
+
+//        setContentView(R.layout.main_game);
+//        xScore.setText("X: "+xWinCount);
+//        oScore.setText("O: "+oWinCount);
+//        draw.setText("Draw: "+drawCount);
 
         turnText.setText("Player's Turn");
         turnSymbol.setText("X");
@@ -323,7 +349,7 @@ public class Single extends AppCompatActivity implements View.OnClickListener {
             {
                 xWinCount++;
                 xScore.setText("X: "+xWinCount);
-                Toast.makeText(this, "!! Player 1 WON -- X !!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "!! Player WON -- X !!", Toast.LENGTH_SHORT).show();
             }
 //            Log.i("cliked odd", "onClick: Print X, click:" + clicks+" matrix contains: "+matrix[i][j]);
         }

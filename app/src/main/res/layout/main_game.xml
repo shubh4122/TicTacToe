@@ -41,7 +41,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="100dp"
-            android:background="@color/black"/>
+            style="@style/gridLine"/>
 
         <Button
             android:id="@+id/btn5"
@@ -50,7 +50,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="100dp"
-            android:background="@color/black"/>
+            style="@style/gridLine"/>
 
         <Button
             android:id="@+id/btn6"
@@ -61,7 +61,7 @@
     <View
         android:layout_width="300dp"
         android:layout_height="2dp"
-        android:background="@color/black"
+        style="@style/gridLine"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/row2"/>
 
@@ -81,7 +81,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="100dp"
-            android:background="@color/black"/>
+            style="@style/gridLine"/>
 
         <Button
             android:id="@+id/btn2"
@@ -91,7 +91,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="100dp"
-            android:background="@color/black"/>
+            style="@style/gridLine"/>
 
         <Button
             android:id="@+id/btn3"
@@ -103,7 +103,7 @@
     <View
         android:layout_width="300dp"
         android:layout_height="2dp"
-        android:background="@color/black"
+        style="@style/gridLine"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/row2"/>
 
@@ -124,7 +124,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="100dp"
-            android:background="@color/black"/>
+            style="@style/gridLine"/>
 
         <Button
             android:id="@+id/btn8"
@@ -134,7 +134,7 @@
         <View
             android:layout_width="2dp"
             android:layout_height="100dp"
-            android:background="@color/black"/>
+            style="@style/gridLine"/>
 
         <Button
             android:id="@+id/btn9"

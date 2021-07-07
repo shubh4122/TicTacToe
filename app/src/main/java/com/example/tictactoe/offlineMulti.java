@@ -1,5 +1,6 @@
 package com.example.tictactoe;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,15 +92,40 @@ public class offlineMulti extends AppCompatActivity implements View.OnClickListe
         b8.setText("");
         b9.setText("");
 
-        b1.setBackgroundColor(Color.WHITE);
-        b2.setBackgroundColor(Color.WHITE);
-        b3.setBackgroundColor(Color.WHITE);
-        b4.setBackgroundColor(Color.WHITE);
-        b5.setBackgroundColor(Color.WHITE);
-        b6.setBackgroundColor(Color.WHITE);
-        b7.setBackgroundColor(Color.WHITE);
-        b8.setBackgroundColor(Color.WHITE);
-        b9.setBackgroundColor(Color.WHITE);
+/**
+ * This detects theme and changes accordingly
+ */
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                b1.setBackgroundColor(Color.BLACK);
+                b2.setBackgroundColor(Color.BLACK);
+                b3.setBackgroundColor(Color.BLACK);
+                b4.setBackgroundColor(Color.BLACK);
+                b5.setBackgroundColor(Color.BLACK);
+                b6.setBackgroundColor(Color.BLACK);
+                b7.setBackgroundColor(Color.BLACK);
+                b8.setBackgroundColor(Color.BLACK);
+                b9.setBackgroundColor(Color.BLACK);
+
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                b1.setBackgroundColor(Color.WHITE);
+                b2.setBackgroundColor(Color.WHITE);
+                b3.setBackgroundColor(Color.WHITE);
+                b4.setBackgroundColor(Color.WHITE);
+                b5.setBackgroundColor(Color.WHITE);
+                b6.setBackgroundColor(Color.WHITE);
+                b7.setBackgroundColor(Color.WHITE);
+                b8.setBackgroundColor(Color.WHITE);
+                b9.setBackgroundColor(Color.WHITE);
+
+                break;
+        }
+
+//        setContentView(R.layout.main_game);
+//        xScore.setText("X: "+xWinCount);
+//        oScore.setText("O: "+oWinCount);
+//        draw.setText("Draw: "+drawCount);
 
         turnText.setText("Player 1's Turn");
         turnSymbol.setText("X");
