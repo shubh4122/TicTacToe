@@ -21,4 +21,9 @@
         <item name="android:layout_height">100dp</item>
         <item name="android:textSize">80sp</item>
     </style>
+
+    <!--    Style for Grid Lines(VIEW)-->
+    <style name="gridLine">
+        <item name="android:background">@color/black</item>
+    </style>
 </resources>

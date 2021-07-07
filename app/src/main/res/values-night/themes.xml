@@ -13,4 +13,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--    Style for matrix Buttons-->
+    <style name="gridBtn">
+        <item name="android:background">@color/black</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:textSize">80sp</item>
+    </style>
+
+<!--    Style for Grid Lines(VIEW)-->
+    <style name="gridLine">
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>
